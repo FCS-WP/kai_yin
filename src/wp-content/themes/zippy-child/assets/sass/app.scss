@@ -1,21 +1,8 @@
-// // @import './fonts/fonts';
-
-// body {
-//   // display: none !important;
-//   text-align: center;
-//   padding: 0;
-//   margin: 0;
-//   height: 100vh;
-//   // display: flex;
-//   flex-flow: column;
-//   justify-content: center;
-//   align-items: center;
-// }
-// .entry-summary{
-//   background: url(../icons/mics.png);
-// }
-// // footer {
-// //   position: fixed;
-// //   bottom: 0px;
-// //   color: white;
-// // }
+@import 'customize';
+@import 'form';
+@import 'socials';
+@import 'slider';
+@import 'shopfilter';
+@import 'product_cats';
+@import 'content_products';
+@import 'services';

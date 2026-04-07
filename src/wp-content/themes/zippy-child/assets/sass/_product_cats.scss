@@ -1,0 +1,134 @@
+// ============================================================
+// Zippy Product Categories Slider
+// _product-categories.scss
+// ============================================================
+
+.zippy-cat-slider {
+    width: 100%;
+
+    .swiper { overflow: visible; }
+
+    // Clip visible overflow on the wrapper, not swiper
+    // so arrows outside still show
+    overflow: hidden;
+}
+
+// ── Category Card ─────────────────────────────────────────────
+.zippy-cat-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+
+    // Zoom image on hover
+    &:hover .zippy-cat-card__bg {
+        transform: scale(1.06);
+       
+    }
+
+    &:hover .zippy-cat-card__label {
+        background: rgba(0,0,0,0.55);
+        .zippy-cat-card__name {
+            color: $fs-color-success;
+        }
+    }
+}
+
+// Background image
+.zippy-cat-card__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease;
+    will-change: transform;
+}
+
+// Dark gradient overlay at bottom
+.zippy-cat-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(0,0,0,0.65) 100%
+    );
+    border-radius: inherit;
+}
+
+// Label bar
+.zippy-cat-card__label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 16px;
+    transition: background 0.25s ease;
+    border-radius: 0 0 inherit inherit;
+}
+
+.zippy-cat-card__name {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.zippy-cat-card__count {
+    display: block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+}
+
+
+// ── External Navigation Buttons ──────────────────────────────
+// Style .custom-prev-btn and .custom-next-btn — place these
+// anywhere in your template/page builder
+
+.custom-prev-btn,
+.custom-next-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+    svg { display: block; }
+
+    &:hover { transform: scale(1.08); }
+
+    // Disabled state (Swiper adds this when loop=false and at edge)
+    &.swiper-button-disabled {
+        opacity: 0.35;
+        cursor: default;
+        pointer-events: none;
+        transform: none;
+    }
+}
+
+// Default style — override in your theme
+.custom-prev-btn {
+    background: #eee;
+    color: #333;
+
+    &:hover { background: #333; color: #fff; }
+}
+
+.custom-next-btn {
+    background: $fs-color-success;
+    color: $primary-color;
+
+    &:hover { background: $primary-color; color: $white; }
+}
+
+.zippy-cat-slider-empty {
+    color: #aaa;
+    font-size: 14px;
+}
