@@ -1,0 +1,876 @@
+================================================================================
+  ZIPPY CHILD THEME — SHORTCODE GUIDE
+  Version: 1.0
+  Last Updated: April 2026
+================================================================================
+
+This guide covers all custom shortcodes built for the Zippy Flatsome child theme.
+Each shortcode includes description, all attributes with defaults, and usage examples.
+
+================================================================================
+  TABLE OF CONTENTS
+================================================================================
+
+  1.  TYPOGRAPHY
+      [zippy_section_title]
+      [zippy_section_sub_title]
+      [zippy_section_text]
+      [zippy_button]
+
+  2.  CARDS & CONTENT
+      [zippy_review_box]
+      [zippy_service_card]
+
+  3.  SLIDER
+      [zippy_slider]
+      [zippy_slide]
+
+  4.  PRODUCTS
+      [zippy_products]
+      [zippy_product_grid]
+
+  5.  SHOP SECTION
+      [zippy_category_tabs]
+      [zippy_category_tab]
+      [zippy_promo_banner]
+      [zippy_promo_grid]
+      [zippy_shop_filter]
+
+  6.  NAVIGATION
+      [zippy_menu]
+      [zippy_breadcrumb]
+
+  7.  SERVICES
+      [zippy_services]
+
+  8.  FORMS
+      [zippy_contact_form]
+      [custom_form]
+      [form_input]
+      [form_select]
+      [form_checkbox]
+
+
+================================================================================
+  1. TYPOGRAPHY
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_section_title]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a section heading. Wraps content in a heading tag with optional
+  inline styles for color, font size, weight, family, and alignment.
+
+Attributes:
+  tag         = h2            HTML tag to use (h1, h2, h3, h4, h5, h6)
+  color       = (inherit)     Text color e.g. #191919
+  font_size   = (inherit)     Font size e.g. 42px
+  font_weight = (inherit)     Font weight e.g. 700
+  font_family = (inherit)     Font family e.g. "Georgia, serif"
+  align       = (inherit)     Text alignment: left | center | right
+  class       = (empty)       Extra CSS classes
+
+Usage:
+  [zippy_section_title]Our Story[/zippy_section_title]
+
+  [zippy_section_title
+    color="#191919"
+    font_size="48px"
+    font_weight="700"
+    align="center"
+    tag="h1"
+  ]
+    Welcome to Zippy
+  [/zippy_section_title]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_section_sub_title]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a sub-heading below a section title. Same options as
+  [zippy_section_title] but defaults to h4 tag.
+
+Attributes:
+  tag         = h4            HTML tag
+  color       = (inherit)
+  font_size   = (inherit)
+  font_weight = (inherit)
+  font_family = (inherit)
+  align       = (inherit)
+  class       = (empty)
+
+Usage:
+  [zippy_section_sub_title color="#bfac91" font_size="18px" align="center"]
+    Crafted with passion
+  [/zippy_section_sub_title]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_section_text]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a paragraph of text with optional typography overrides.
+
+Attributes:
+  color          = (inherit)
+  font_size      = (inherit)
+  font_weight    = (inherit)
+  font_family    = (inherit)
+  line_height    = (inherit)   e.g. 1.8
+  letter_spacing = (inherit)   e.g. 0.3px
+  align          = (inherit)
+  class          = (empty)
+
+Usage:
+  [zippy_section_text color="#555" font_size="16px" line_height="1.8" align="center"]
+    We believe in quality over quantity. Every product is carefully curated.
+  [/zippy_section_text]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_button]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a styled anchor button link with full color and hover control.
+
+Attributes:
+  url            = #           Button link URL
+  target         = _self       _self | _blank
+  color          = (inherit)   Text color
+  bg_color       = (inherit)   Background color
+  font_size      = (inherit)
+  font_weight    = (inherit)
+  font_family    = (inherit)
+  border_color   = (inherit)
+  border_radius  = (inherit)   e.g. 4px | 50px
+  padding        = (inherit)   e.g. 12px 32px
+  hover_color    = (inherit)   Text color on hover
+  hover_bg_color = (inherit)   Background on hover
+  class          = (empty)
+
+Usage:
+  [zippy_button url="/shop" color="#fff" bg_color="#191919" border_radius="50px"
+    padding="12px 32px" hover_color="#191919" hover_bg_color="#e9e0d1"]
+    Shop Now
+  [/zippy_button]
+
+
+================================================================================
+  2. CARDS & CONTENT
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_review_box]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a customer review card with floating icon, review text,
+  reviewer name, and optional sub-title.
+
+Attributes:
+  icon      = (empty)     URL to icon image (floats above card top-left)
+  title     = (empty)     Reviewer name  [REQUIRED]
+  sub_title = (empty)     Role or label (hidden if not provided)
+  class     = (empty)     Extra CSS class e.g. "bg-success"
+
+Content:
+  The review text is passed between the tags.
+
+Usage:
+  [zippy_review_box
+    icon="/wp-content/uploads/icon.png"
+    title="SQ Yeo"
+    sub_title="Pet Owner"
+    class="bg-success"
+  ]
+    Experienced groomers who put their heart into caring for our dog.
+  [/zippy_review_box]
+
+  // Without icon
+  [zippy_review_box title="Amanda Lim" sub_title="Dog Mom"]
+    My golden retriever always comes home looking amazing!
+  [/zippy_review_box]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_service_card]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a service offering card with icon, title, body text, and
+  a "See Catalogue" button. Two variants: light (white) and dark (beige).
+
+Attributes:
+  icon       = (empty)          Icon image URL
+  title      = (empty)          Card heading
+  btn_text   = See Catalogue    Button label
+  btn_url    = #                Button link
+  btn_target = _self            _self | _blank
+  variant    = light            light (white card) | dark (beige card)
+  class      = (empty)
+
+Content:
+  Description text between the tags.
+
+Usage:
+  // Light card with icon
+  [zippy_service_card
+    icon="/wp-content/uploads/grooming-icon.png"
+    title="Grooming"
+    btn_text="See Catalogue"
+    btn_url="/grooming"
+    variant="light"
+  ]
+    Custom grooming tailored to your pet's coat, structure, and comfort.
+  [/zippy_service_card]
+
+  // Dark card without icon
+  [zippy_service_card title="Book a Session" btn_url="/book" variant="dark"]
+    Calm, careful grooming guided by experience and genuine care.
+  [/zippy_service_card]
+
+
+================================================================================
+  3. SLIDER (Powered by Swiper.js)
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_slider] ... [/zippy_slider]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Wraps [zippy_slide] items into a Swiper.js powered slider.
+  Swiper.js must be enqueued via functions.php.
+
+Attributes:
+  slides_per_view        = 1        Slides visible on desktop
+  slides_per_view_tablet = (same)   Slides visible on tablet (768px+)
+  slides_per_view_mobile = 1        Slides visible on mobile (base)
+  space_between          = 24       Gap in px on desktop
+  space_between_tablet   = (same)   Gap on tablet
+  space_between_mobile   = 16       Gap on mobile
+  arrows                 = true     Show prev/next arrows
+  dots                   = true     Show pagination dots
+  autoplay               = false    false | delay in ms e.g. "3000"
+  loop                   = false    Infinite loop
+  centered               = false    Center active slide
+  free_mode              = false    Free scroll drag
+  slides_per_group       = 1        Slides to advance per swipe
+  height                 = (auto)   Fixed height e.g. "500px"
+  class                  = (empty)
+
+Usage:
+  // Hero slider
+  [zippy_slider autoplay="4000" loop="true" dots="true"]
+    [zippy_slide bg="/uploads/slide1.jpg"]
+      [zippy_section_title color="#fff"]Our Services[/zippy_section_title]
+    [/zippy_slide]
+    [zippy_slide bg="/uploads/slide2.jpg"]
+      [zippy_section_title color="#fff"]Book Now[/zippy_section_title]
+    [/zippy_slide]
+  [/zippy_slider]
+
+  // Card slider — 3 per view
+  [zippy_slider slides_per_view="3" slides_per_view_tablet="2"
+    slides_per_view_mobile="1" space_between="24" dots="true" arrows="false"]
+    [zippy_slide bg_color="#fff"][zippy_review_box title="Name"]Text[/zippy_review_box][/zippy_slide]
+    [zippy_slide bg_color="#fff"][zippy_review_box title="Name"]Text[/zippy_review_box][/zippy_slide]
+  [/zippy_slider]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_slide]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Individual slide inside [zippy_slider]. Can have a background image
+  or color. Content is centered by default.
+
+Attributes:
+  bg       = (empty)    Background image URL
+  bg_color = (empty)    Background color e.g. #fff
+  align    = center     Content text-align: left | center | right
+  valign   = middle     Vertical align: top | middle | bottom
+  class    = (empty)
+
+Usage:
+  [zippy_slide bg="/uploads/hero.jpg" align="center" valign="middle"]
+    [zippy_section_title color="#fff"]Hello World[/zippy_section_title]
+  [/zippy_slide]
+
+  [zippy_slide bg_color="#e9e0d1"]
+    [zippy_service_card title="Grooming" variant="light"]Text[/zippy_service_card]
+  [/zippy_slide]
+
+
+================================================================================
+  4. PRODUCTS
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_products]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Displays a responsive grid of WooCommerce products with image,
+  name, price, and an optional Shop Now button at the bottom.
+  Requires WooCommerce.
+
+Attributes:
+  category        = (all)     Product category slug(s), comma separated
+  featured        = false     Show featured products only: true | false
+  limit           = 4         Number of products to show
+  orderby         = date      date | price | popularity | rating | rand
+  order           = DESC      ASC | DESC
+  columns         = 4         Desktop columns
+  columns_tablet  = 2         Tablet columns
+  columns_mobile  = 2         Mobile columns
+  btn_text        = Shop Now  Footer button label
+  btn_url         = /shop     Footer button link
+  btn_target      = _self     _self | _blank
+  show_btn        = true      Show/hide footer button
+  class           = (empty)
+
+Usage:
+  // Latest 4 products
+  [zippy_products limit="4" btn_text="Shop Now" btn_url="/shop"]
+
+  // Featured products in 3 columns
+  [zippy_products featured="true" limit="6" columns="3"]
+
+  // By category, no button
+  [zippy_products category="grooming" limit="4" show_btn="false"]
+
+  // Best sellers
+  [zippy_products orderby="popularity" limit="4" columns="4"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_product_grid]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Advanced product grid with badge support (Editor's Choice / Sale %),
+  category label, and add-to-cart button. Best used on shop/category pages.
+  Requires WooCommerce.
+
+Attributes:
+  category        = (all)     Category slug(s)
+  featured        = false     Featured only
+  ids             = (empty)   Comma-separated product IDs
+  limit           = 3         Number of products
+  orderby         = date
+  order           = DESC
+  columns         = 3
+  columns_tablet  = 2
+  columns_mobile  = 1
+  show_badge      = true      Auto badge: SALE -X% or EDITOR'S CHOICE
+  show_cat_label  = true      Category label above product name
+  show_cart       = true      Add to cart button
+  class           = (empty)
+
+Badge Logic:
+  - Product on sale           → SALE -XX% badge (orange)
+  - Product featured + not on sale → EDITOR'S CHOICE badge (tan)
+
+Usage:
+  [zippy_product_grid category="grooming" limit="3" columns="3"]
+
+  [zippy_product_grid ids="10,11,12" show_badge="true" show_cat_label="true"]
+
+  [zippy_product_grid featured="true" limit="6" columns="3" show_cart="true"]
+
+
+================================================================================
+  5. SHOP SECTION
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_category_tabs] ... [/zippy_category_tabs]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Wrapper for [zippy_category_tab] items. Renders a horizontal
+  nav bar of circular icon tabs.
+
+Attributes:
+  align = left    left | center | right
+  class = (empty)
+
+Usage:
+  [zippy_category_tabs align="left"]
+    [zippy_category_tab label="Dogs"  icon="/uploads/dog-icon.png"  url="/product-category/dogs"  active="true"]
+    [zippy_category_tab label="Cats"  icon="/uploads/cat-icon.png"  url="/product-category/cats"]
+    [zippy_category_tab label="Birds" icon="/uploads/bird-icon.png" url="/product-category/birds"]
+  [/zippy_category_tabs]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_category_tab]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Single tab item inside [zippy_category_tabs]. Shows a circular icon
+  and label below.
+
+Attributes:
+  label  = (empty)   Tab label text  [REQUIRED]
+  url    = #         Link URL
+  icon   = (empty)   Icon image URL
+  active = false     Mark as active/current: true | false
+  class  = (empty)
+
+Usage:
+  [zippy_category_tab label="Dogs" url="/dogs" icon="/uploads/dog.png" active="true"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_promo_banner]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a grid of active promotion images for a category.
+  Promotions are managed via WooCommerce → Promotions admin page.
+  Images link to the promotion's redirect URL if set.
+
+  NOTE: Since the Promotions admin integration, this shortcode shows
+  a grid of banner images — not a text/split banner layout.
+
+Attributes:
+  category = (auto)   Category slug — auto-detects current archive if empty
+  columns  = 2        Grid columns
+  gap      = 16px     Gap between images
+  class    = (empty)
+
+Usage:
+  // Auto-detect current category archive
+  [zippy_promo_banner]
+
+  // Specific category
+  [zippy_promo_banner category="dogs"]
+
+  // 3 columns
+  [zippy_promo_banner category="cats" columns="3"]
+
+Admin Setup:
+  WooCommerce → Promotions → Add Promotion
+    Name:        "Spring Sale"
+    Category:    dogs
+    Image:       upload banner image
+    Redirect URL: /shop/dogs-sale  (optional)
+    Date Range:  2026-03-01 → 2026-03-31
+    Active:      ✓
+
+  The promotion auto-renders on /product-category/dogs/ archive page.
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_shop_filter]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Collapsible sidebar filter for WooCommerce shop/archive pages.
+  Filters: Price range (dual slider), Category tree, Brand checkboxes.
+  Max price is automatically detected from the highest product price in DB.
+  Requires WooCommerce.
+
+Attributes:
+  show_price      = true              Show price section
+  price_label     = Price range       Section heading
+  min_price       = 0                 Slider minimum
+  max_price       = (auto from DB)    Slider maximum — auto-detects if empty
+  price_step      = 1                 Slider step increment
+  show_category   = true              Show category section
+  category_label  = Category          Section heading
+  cat_depth       = 3                 Category tree depth (levels)
+  show_brand      = true              Show brand section
+  brand_label     = Brand             Section heading
+  brand_taxonomy  = product_brand     Brand taxonomy slug
+  submit_text     = Apply Filters     Submit button text
+  clear_text      = Clear All         Clear all link text
+  action_url      = (shop page)       Form action URL
+  open_sections   = price,category,brand  Comma list of sections open by default
+  class           = (empty)
+
+Usage:
+  // Basic — all auto
+  [zippy_shop_filter]
+
+  // Custom labels, no brand
+  [zippy_shop_filter
+    show_brand="false"
+    price_label="Budget"
+    submit_text="Filter Products"
+    open_sections="price,category"
+  ]
+
+  // Full config
+  [zippy_shop_filter
+    show_price="true"
+    min_price="0"
+    show_category="true"
+    cat_depth="3"
+    show_brand="true"
+    brand_taxonomy="product_brand"
+    open_sections="price,category,brand"
+    submit_text="Apply Filters"
+    clear_text="Clear All"
+  ]
+
+Notes:
+  - Max price caches for 12 hours, auto-clears when a product is saved
+  - Category tree shows hierarchy up to cat_depth levels
+  - Checking a parent category checks all its children
+  - Active filters (from URL params) are restored automatically on page load
+
+
+================================================================================
+  6. NAVIGATION
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_menu]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Renders a WordPress nav menu as horizontal or vertical links.
+  Supports custom colors, fonts, and an animated underline indicator.
+
+Attributes:
+  menu         = (required)   Menu ID, name, or slug
+  direction    = horizontal   horizontal | vertical
+  align        = left         left | center | right
+  gap          = 32px         Space between items
+  font_size    = (inherit)
+  font_weight  = (inherit)
+  font_family  = (inherit)
+  color        = (inherit)    Link text color
+  color_hover  = (inherit)    Link hover color
+  color_active = (inherit)    Active/current page color
+  indicator    = false        Underline slide on hover/active: true | false
+  class        = (empty)
+
+Usage:
+  // Horizontal header nav
+  [zippy_menu
+    menu="Main Menu"
+    direction="horizontal"
+    align="center"
+    gap="32px"
+    color="#191919"
+    color_hover="#bfac91"
+    color_active="#bfac91"
+    font_size="14px"
+    font_weight="500"
+    indicator="true"
+  ]
+
+  // Vertical footer nav
+  [zippy_menu
+    menu="Footer Menu"
+    direction="vertical"
+    gap="12px"
+    font_size="14px"
+    color="#555"
+    color_hover="#191919"
+  ]
+
+  // By menu ID
+  [zippy_menu menu="5" direction="horizontal" gap="24px"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_breadcrumb]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Displays a dynamic breadcrumb trail based on the current page.
+  Handles: pages, posts, categories, WooCommerce products, product
+  categories, archives, search, 404. Auto-hides on homepage.
+  Includes Schema.org BreadcrumbList markup for SEO.
+
+Attributes:
+  separator       = /         Separator character between items
+  show_home       = true      Show Home as first item
+  home_text       = Home      Label for home link
+  home_icon       = false     Show house SVG icon instead of text: true | false
+  font_size       = (inherit)
+  font_weight     = (inherit)
+  color           = (inherit) Inactive item color
+  color_active    = (inherit) Current page color
+  color_hover     = (inherit) Link hover color
+  color_separator = (inherit) Separator color
+  align           = left      left | center | right
+  class           = (empty)
+
+Supported page types:
+  Home › (nothing shown — hidden on homepage)
+  Home › Category › Post Title
+  Home › Parent Page › Current Page
+  Home › Shop › Category › Product
+  Home › Shop › Category
+  Home › Tag: keyword
+  Home › Search: query
+  Home › 404 - Page Not Found
+
+Usage:
+  // Basic
+  [zippy_breadcrumb]
+
+  // Custom separator and colors
+  [zippy_breadcrumb
+    separator="›"
+    color="#999"
+    color_active="#191919"
+    color_hover="#bfac91"
+    color_separator="#ccc"
+    font_size="13px"
+  ]
+
+  // With home icon
+  [zippy_breadcrumb home_icon="true" separator="/" align="center"]
+
+  // No home link
+  [zippy_breadcrumb show_home="false" separator="—"]
+
+
+================================================================================
+  7. SERVICES
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_services]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Displays a grid of services from the "zippy_service" custom post type.
+  Each service card shows: icon, title, description excerpt, price,
+  and a booking button.
+  Requires the zippy_service CPT to be registered (included in zippy-services.php).
+
+Attributes:
+  category        = (all)     Service category slug(s), comma separated
+  columns         = 3         Desktop columns
+  columns_tablet  = 2         Tablet columns
+  columns_mobile  = 1         Mobile columns
+  limit           = -1        Max services, -1 = all
+  orderby         = menu_order
+  order           = ASC
+  btn_text        = Book Now  Button label
+  btn_url         = #         Default button URL (overridden per service if set)
+  show_price      = true      Show/hide price
+  show_icon       = true      Show/hide icon
+  class           = (empty)
+
+Admin Setup:
+  WP Admin → Services → Add New
+    Title:          "Veterinary Care"
+    Content:        Full description (excerpt shown on card)
+    Category:       e.g. "veterinary", "grooming"
+
+  Service Details metabox:
+    Price:          19
+    Price Unit:     /hour | /session | /day | /month | /visit | /item
+    Book Button URL: /booking/vet  (optional — overrides shortcode btn_url)
+    Icon Image:     upload icon image
+
+Usage:
+  // All services in "grooming" category
+  [zippy_services category="grooming" columns="3" btn_text="Book Now" btn_url="/booking"]
+
+  // Multiple categories
+  [zippy_services category="grooming,spa,veterinary" columns="3"]
+
+  // Limit to 3, no price
+  [zippy_services category="grooming" limit="3" show_price="false"]
+
+
+================================================================================
+  8. FORMS
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_contact_form]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Pre-built contact form with fixed fields: Name, Email, Phone, Subject,
+  Order Number (optional), Message. Includes server-side + client-side
+  validation, PRG pattern, and wp_mail() delivery.
+
+Attributes:
+  email           = (admin email)   Recipient email address
+  success_message = (default text)  Message shown after success
+  label_name      = Full Name
+  label_email     = Email Address
+  label_phone     = Phone Number
+  label_subject   = Subject
+  label_order     = Order Number
+  label_message   = Message
+  label_submit    = Send Message
+  placeholder_order = Optional
+  class           = (empty)
+
+Usage:
+  // Basic
+  [zippy_contact_form]
+
+  // Custom recipient and labels
+  [zippy_contact_form
+    email="hello@yoursite.com"
+    label_submit="Send Enquiry"
+    success_message="Thanks! We'll reply within 24 hours."
+  ]
+
+  // Pet business
+  [zippy_contact_form
+    email="grooming@yoursite.com"
+    label_subject="What can we help with?"
+    label_order="Booking Reference"
+    label_submit="Submit Enquiry"
+  ]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[custom_form] ... [/custom_form]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Fully dynamic form builder. Place [form_input], [form_select],
+  and [form_checkbox] shortcodes inside to build any custom form.
+  Handles: validation, PRG pattern, email delivery via wp_mail().
+
+Attributes:
+  submit_text     = Submit          Button label
+  recipient       = (admin email)   Recipient email
+  subject         = New Form Submission  Email subject line
+  success_message = (default text)  Shown after successful send
+  id              = (auto)          Custom form element ID
+  class           = (empty)
+
+Usage:
+  [custom_form
+    submit_text="Submit"
+    recipient="hau.nguyen@floatingcube.com"
+    subject="New Contact Request"
+    success_message="Thanks! We'll reply within 24 hours."
+  ]
+    [form_input type="text"  name="full_name"   label="Full Name"    required="true"  width="50%"]
+    [form_input type="email" name="email"  label="Email" required="true"  width="50%"]
+    [form_input type="tel" name="contact_number" label="Contact number"       required="true"  width="50%"]
+    [form_input type="text"  name="title"   label="I am a..." required="true" width="50%"]
+    [form_input type="text" name="company"    label="company" required="false" width="50%"]
+    [form_select name="property_type" label="Property Type" options="Landed Property, Private Non-Landed Property, Public Housing [HDB], Others" required="true" width="50%"]
+    [form_input name="message" type="textarea" label="How can we help?" rows="4"]
+    [form_checkbox label="I agree to the terms and conditions" required="true"]
+  [/custom_form]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[form_input]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  A single input field inside [custom_form]. Supports all standard
+  HTML input types plus textarea.
+
+Attributes:
+  type        = text        text | email | tel | number | date | time | url | textarea
+  label       = (empty)     Field label and placeholder  [REQUIRED]
+  placeholder = (label)     Custom placeholder text
+  required    = false       true | false
+  width       = 100%        Field width: 100% | 50% | 33% | 25%
+  value       = (empty)     Default value
+  min         = (empty)     Minimum (for number/date)
+  max         = (empty)     Maximum (for number/date)
+  step        = (empty)     Step (for number)
+  rows        = 4           Rows (for textarea only)
+  name        = (from label) Override field name in email
+  class       = (empty)
+
+Width system:
+  width="100%"  → full row
+  width="50%"   → 2 fields per row
+  width="33%"   → 3 fields per row
+  width="25%"   → 4 fields per row
+  (On mobile all fields become full width automatically)
+
+Usage:
+  [form_input type="text"     label="Full Name"      required="true" width="50%"]
+  [form_input type="email"    label="Email"          required="true" width="50%"]
+  [form_input type="tel"      label="Phone"          width="50%"]
+  [form_input type="date"     label="Date"           width="50%"]
+  [form_input type="number"   label="Guests"         min="1" max="20" width="50%"]
+  [form_input type="textarea" label="Message"        rows="5"]
+  [form_input type="time"     label="Preferred Time" width="50%"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[form_select]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  A dropdown select field inside [custom_form].
+
+Attributes:
+  label       = (empty)     Field label  [REQUIRED]
+  options     = (empty)     Comma-separated options  [REQUIRED]
+  placeholder = Select...   First empty option text
+  required    = false
+  width       = 100%
+  name        = (from label)
+  class       = (empty)
+
+Usage:
+  [form_select label="Service"   options="Grooming, Spa, Vaccine" required="true" width="50%"]
+  [form_select label="Time Slot" options="9:00am, 11:00am, 2:00pm" width="50%"]
+  [form_select label="Pet Type"  options="Dog, Cat, Bird, Other"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[form_checkbox]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  A single checkbox field inside [custom_form]. Typically used for
+  terms & conditions or opt-in consent.
+
+Attributes:
+  label    = (empty)    Checkbox label text  [REQUIRED]
+  required = false
+  width    = 100%
+  name     = (from label)
+  class    = (empty)
+
+Usage:
+  [form_checkbox label="I agree to the terms and conditions" required="true"]
+  [form_checkbox label="Subscribe to our newsletter"]
+
+
+================================================================================
+  NOTES & TIPS
+================================================================================
+
+  1. LOADING ORDER
+     All shortcode files must be required in functions.php before use:
+
+       require_once get_stylesheet_directory() . '/inc/zippy-shortcodes.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-settings.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-promotions.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-shop-filter.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-shop-section.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-services.php';
+       require_once get_stylesheet_directory() . '/inc/zippy-form-builder.php';
+
+  2. SCSS VARIABLES USED
+     All shortcodes rely on these SCSS variables defined in _variables.scss:
+       $primary-color       → var(--primary-color)       // #191919
+       $fs-color-primary    → var(--fs-color-primary)    // #191919
+       $fs-color-secondary  → var(--fs-color-secondary)  // #e9e0d1
+       $fs-color-success    → var(--fs-color-success)    // #bfac91
+       $white               → #ffffff
+
+  3. SWIPER.JS (required for [zippy_slider])
+     Add to functions.php:
+       wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+       wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', [], null, true);
+
+  4. WOOCOMMERCE DEPENDENCY
+     These shortcodes require WooCommerce to be active:
+       [zippy_products], [zippy_product_grid], [zippy_shop_filter],
+       [zippy_category_tabs], [zippy_promo_banner], [zippy_shop_filter]
+
+  5. GENERATING SHORTCODES FROM UX BUILDER
+     Build any element in UX Builder → switch to HTML view → copy the
+     generated shortcode → use it anywhere with do_shortcode().
+
+  6. PHP USAGE
+     echo do_shortcode('[zippy_section_title color="#fff"]Hello[/zippy_section_title]');
+
+================================================================================
+  END OF GUIDE
+================================================================================

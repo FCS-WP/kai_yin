@@ -1,0 +1,82 @@
+.zippy-socials {
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &--top-left {
+        top: 24px;
+        left: 24px;
+    }
+
+    &--top-right {
+        top: 24px;
+        right: 24px;
+    }
+
+    &--bottom-left {
+        bottom: 24px;
+        left: 24px;
+    }
+
+    &--bottom-right {
+        right: 70px;
+        bottom: 20px;
+    }
+
+    @media (max-width: 767px) {
+        &--top-left,
+        &--top-right {
+            top: auto;
+        }
+
+        &--top-left,
+        &--bottom-left {
+            left: 16px;
+        }
+
+        &--top-right,
+        &--bottom-right {
+            right: 16px;
+        }
+
+        &--top-left,
+        &--top-right,
+        &--bottom-left,
+        &--bottom-right {
+            bottom: 16px;
+        }
+    }
+}
+
+.zippy-socials__button {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    }
+}
+
+.zippy-socials__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    img,
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+    }
+}
