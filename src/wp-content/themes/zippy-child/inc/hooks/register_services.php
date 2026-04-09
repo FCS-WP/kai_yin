@@ -19,6 +19,7 @@ add_action('init', function () {
         'supports'      => ['title', 'editor', 'thumbnail', 'excerpt'],
         'show_in_rest'  => true,
         'rewrite'       => ['slug' => 'services'],
+        'has_archive'   => true,
     ]);
 });
 
@@ -29,11 +30,128 @@ add_action('init', function () {
 add_action('init', function () {
     register_taxonomy('services_category', 'services', [
         'label'             => __('Service Categories', 'flatsome-child'),
+        'public'            => true,
+        'publicly_queryable'=> true,
         'hierarchical'      => true,
         'show_in_rest'      => true,
+        'query_var'         => true,
         'rewrite'           => ['slug' => 'services-category'],
         'show_admin_column' => true,
     ]);
+});
+
+function zippy_get_services_category_image_id( $term_id ) {
+    return (int) get_term_meta($term_id, 'thumbnail_id', true);
+}
+
+function zippy_get_services_category_image_url( $term_id, $size = 'full' ) {
+    $image_id = zippy_get_services_category_image_id($term_id);
+
+    if ( ! $image_id ) {
+        return '';
+    }
+
+    return wp_get_attachment_image_url($image_id, $size) ?: '';
+}
+
+add_action('services_category_add_form_fields', function () {
+    ?>
+    <div class="form-field term-thumbnail-wrap">
+        <label for="services-category-thumbnail-id"><?php esc_html_e('Category Image', 'flatsome-child'); ?></label>
+        <input type="hidden" id="services-category-thumbnail-id" name="thumbnail_id" value="" />
+        <div id="services-category-thumbnail-preview" style="margin-bottom:12px;"></div>
+        <button type="button" class="button zippy-service-term-image-upload"><?php esc_html_e('Upload/Add image', 'flatsome-child'); ?></button>
+        <button type="button" class="button zippy-service-term-image-remove" style="display:none;"><?php esc_html_e('Remove image', 'flatsome-child'); ?></button>
+        <p class="description"><?php esc_html_e('Recommended for archive banner background.', 'flatsome-child'); ?></p>
+    </div>
+    <?php
+});
+
+add_action('services_category_edit_form_fields', function ( $term ) {
+    $image_id = zippy_get_services_category_image_id($term->term_id);
+    $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : '';
+    ?>
+    <tr class="form-field term-thumbnail-wrap">
+        <th scope="row"><label for="services-category-thumbnail-id"><?php esc_html_e('Category Image', 'flatsome-child'); ?></label></th>
+        <td>
+            <input type="hidden" id="services-category-thumbnail-id" name="thumbnail_id" value="<?php echo esc_attr($image_id); ?>" />
+            <div id="services-category-thumbnail-preview" style="margin-bottom:12px;">
+                <?php if ( $image_url ) : ?>
+                    <img src="<?php echo esc_url($image_url); ?>" alt="" style="max-width:220px;height:auto;display:block;" />
+                <?php endif; ?>
+            </div>
+            <button type="button" class="button zippy-service-term-image-upload"><?php esc_html_e('Upload/Add image', 'flatsome-child'); ?></button>
+            <button type="button" class="button zippy-service-term-image-remove" <?php echo $image_url ? '' : 'style="display:none;"'; ?>><?php esc_html_e('Remove image', 'flatsome-child'); ?></button>
+            <p class="description"><?php esc_html_e('Recommended for archive banner background.', 'flatsome-child'); ?></p>
+        </td>
+    </tr>
+    <?php
+});
+
+add_action('created_services_category', function ( $term_id ) {
+    if ( isset($_POST['thumbnail_id']) ) {
+        update_term_meta($term_id, 'thumbnail_id', absint($_POST['thumbnail_id']));
+    }
+});
+
+add_action('edited_services_category', function ( $term_id ) {
+    if ( isset($_POST['thumbnail_id']) ) {
+        update_term_meta($term_id, 'thumbnail_id', absint($_POST['thumbnail_id']));
+    }
+});
+
+add_action('admin_enqueue_scripts', function ( $hook ) {
+    if ( ! in_array($hook, ['edit-tags.php', 'term.php'], true) ) {
+        return;
+    }
+
+    $screen = get_current_screen();
+    if ( ! $screen || $screen->taxonomy !== 'services_category' ) {
+        return;
+    }
+
+    wp_enqueue_media();
+    wp_add_inline_script('jquery-core', "
+        jQuery(function($) {
+            var frame;
+            function updatePreview(attachment) {
+                var preview = $('#services-category-thumbnail-preview');
+                var removeBtn = $('.zippy-service-term-image-remove');
+                var image = attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url;
+                preview.html('<img src=\"' + image + '\" alt=\"\" style=\"max-width:220px;height:auto;display:block;\" />');
+                removeBtn.show();
+            }
+
+            $(document).on('click', '.zippy-service-term-image-upload', function(e) {
+                e.preventDefault();
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+
+                frame = wp.media({
+                    title: 'Select category image',
+                    button: { text: 'Use image' },
+                    multiple: false
+                });
+
+                frame.on('select', function() {
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    $('#services-category-thumbnail-id').val(attachment.id);
+                    updatePreview(attachment);
+                });
+
+                frame.open();
+            });
+
+            $(document).on('click', '.zippy-service-term-image-remove', function(e) {
+                e.preventDefault();
+                $('#services-category-thumbnail-id').val('');
+                $('#services-category-thumbnail-preview').empty();
+                $(this).hide();
+            });
+        });
+    ");
 });
 
 
@@ -99,6 +217,29 @@ add_action('save_post_services', function ($post_id) {
     update_post_meta($post_id, '_price_unit', sanitize_text_field($_POST['price_unit'] ?? ''));
     update_post_meta($post_id, '_btn_url', esc_url_raw($_POST['btn_url'] ?? ''));
     update_post_meta($post_id, '_icon', esc_url_raw($_POST['icon'] ?? ''));
+});
+
+function zippy_get_service_meta( $service_id ) {
+    return [
+        'price'      => get_post_meta($service_id, '_price', true),
+        'price_unit' => get_post_meta($service_id, '_price_unit', true) ?: '',
+        'button_url' => get_post_meta($service_id, '_btn_url', true),
+        'icon'       => get_post_meta($service_id, '_icon', true),
+    ];
+}
+
+add_action('pre_get_posts', function ( $query ) {
+    if ( is_admin() || ! $query->is_main_query() ) return;
+
+    if ( $query->is_post_type_archive('services') || $query->is_tax('services_category') ) {
+        if ( ! $query->get('orderby') ) {
+            $query->set('orderby', 'menu_order');
+        }
+
+        if ( ! $query->get('order') ) {
+            $query->set('order', 'ASC');
+        }
+    }
 });
 
 

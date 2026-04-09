@@ -13,6 +13,20 @@
     overflow: hidden;
 }
 
+.zippy-cat-grid-wrapper {
+    width: 100%;
+}
+
+.zippy-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--zippy-cat-grid-columns, 4), minmax(0, 1fr));
+    gap: var(--zippy-cat-grid-gap, 20px);
+}
+
+.zippy-cat-grid__item {
+    min-width: 0;
+}
+
 // ── Category Card ─────────────────────────────────────────────
 .zippy-cat-card {
     display: block;
@@ -131,4 +145,18 @@
 .zippy-cat-slider-empty {
     color: #aaa;
     font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+    .zippy-cat-grid {
+        grid-template-columns: repeat(var(--zippy-cat-grid-columns-tablet, 3), minmax(0, 1fr));
+        gap: var(--zippy-cat-grid-gap-tablet, 16px);
+    }
+}
+
+@media (max-width: 767px) {
+    .zippy-cat-grid {
+        grid-template-columns: repeat(var(--zippy-cat-grid-columns-mobile, 2), minmax(0, 1fr));
+        gap: var(--zippy-cat-grid-gap-mobile, 12px);
+    }
 }

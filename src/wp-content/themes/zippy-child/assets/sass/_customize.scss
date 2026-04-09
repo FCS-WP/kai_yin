@@ -9,19 +9,39 @@ $link-color-hover : var(--fs-experimental-link-color-hover);
 $default-text-color: #191919;
 $white: #fff;
 
-.header-main {
-    border-bottom: 1px solid $fs-color-success;
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif !important;
 }
+
 
 .header-wrapper .header-nav-main.nav-left {
     justify-content: center !important;
+    
 }
-
+@media (min-width: 1024px) {
+    .header-wrapper .header-nav-main.nav-left {
+        gap: 50px;
+    }
+    .header-inner.container {
+        padding: 0 20px 0 0;
+    }
+}
 .header-wrapper {
-    // #logo img {
-    //     object-fit: cover;
-    //     width: 100%;
-    // }
+    #logo {
+        height: 100%;
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            background-color: $fs-color-success;
+        }
+        a {
+            height: 100%;
+        }
+    }
 
     .header-button-1 .button {
         background-color: $fs-color-success;
@@ -493,7 +513,7 @@ header {
     }
 }
 .button.success {
-    color: #0a7400 !important;
+    color: $fs-color-primary !important;
 }
 
 .zippy-section-title {
@@ -544,4 +564,64 @@ header {
 
 .custom-list li {
     margin-left: 0 !important;
+}
+
+.custom-bg {
+    width: 70%;
+    height: 100%;
+    background: var(--fs-color-primary);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.custom-bg-right {
+    width: 60%;
+    height: 100%;
+    background: var(--fs-color-success);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+}
+.badge-inner  {
+    color: $fs-color-primary !important;
+}
+
+.counter-box {
+    text-align: center;
+    .counter-number {
+        font-size: 48px;
+        margin: 0;
+        line-height: 1.5;
+        color: $fs-color-success;
+    }
+    .counter-desc {
+        color: $primary-color;
+        font-size: 1.2rem;
+    }
+}
+.auto-height .col-inner{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .img  {
+        flex-grow: 1;
+        .img-inner, img {
+            height: 100%;
+        }
+    }
+}
+
+.page-wrapper {
+    padding: 0 !important;
+}
+
+.single_add_to_cart_button , 
+.checkout-button,
+.button.alt,
+.button.checkout {
+    color: $primary-color !important;
+    background-color: $fs-color-success !important;
 }

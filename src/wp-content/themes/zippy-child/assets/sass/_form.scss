@@ -127,6 +127,7 @@
     &--error {
         input, textarea {
             border-color: #e53935 !important;
+            color: #e53935;
             box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1) !important;
         }
     }
@@ -198,11 +199,16 @@
 
 .zippy-form__submit-btn {
     border: 1px solid $fs-color-success;
-    background-color: $fs-color-success;
-    border-radius: 20px;
+    background-color: $fs-color-primary;
+    color: #fff;
     padding: 4px 40px;
+    font-weight: 400;
+    font-size: 14px;
     &:hover {
         background-color: $primary-color;
-        color: #fff;
+        color: $fs-color-success;
     }
+}
+.zippy-field-error {
+    color: #c62828;
 }
