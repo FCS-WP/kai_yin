@@ -28,6 +28,8 @@ Each shortcode includes description, all attributes with defaults, and usage exa
   4.  PRODUCTS
       [zippy_products]
       [zippy_product_grid]
+      [zippy_product_categories]
+      [zippy_product_categories_grid]
 
   5.  SHOP SECTION
       [zippy_category_tabs]
@@ -375,6 +377,80 @@ Usage:
   [zippy_product_grid ids="10,11,12" show_badge="true" show_cat_label="true"]
 
   [zippy_product_grid featured="true" limit="6" columns="3" show_cart="true"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_product_categories]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Displays WooCommerce product categories as a Swiper slider using
+  featured category images with name overlay and optional product count.
+
+Attributes:
+  parent                  = 0         0 = top level only, -1 = all, or specific parent ID
+  include                 = (empty)   Comma-separated category slugs to include
+  exclude                 = (empty)   Comma-separated category slugs to exclude
+  orderby                 = name      name | count | slug | term_order | menu_order
+  order                   = ASC       ASC | DESC
+  hide_empty              = true      Hide categories with no products
+  limit                   = -1        Number of categories to show
+  slides_per_view         = 4         Desktop slides
+  slides_per_view_tablet  = 3         Tablet slides
+  slides_per_view_mobile  = 2         Mobile slides
+  space_between           = 20        Desktop gap
+  space_between_tablet    = 16        Tablet gap
+  space_between_mobile    = 12        Mobile gap
+  loop                    = false     true | false
+  autoplay                = false     false or delay in ms
+  free_mode               = false     true | false
+  prev_btn                = .custom-prev-btn   Previous button selector
+  next_btn                = .custom-next-btn   Next button selector
+  image_height            = 340px     Card height
+  border_radius           = 12px      Card border radius
+  show_count              = false     Show product count text
+  fallback_image          = (empty)   Fallback image URL
+  class                   = (empty)   Extra CSS classes
+
+Usage:
+  [zippy_product_categories]
+
+  [zippy_product_categories include="dogs,cats" slides_per_view="5" show_count="true"]
+
+
+────────────────────────────────────────────────────────────────────────────────
+[zippy_product_categories_grid]
+────────────────────────────────────────────────────────────────────────────────
+Description:
+  Displays WooCommerce product categories in a responsive grid layout.
+  Uses the same category card design as the slider shortcode, with
+  configurable columns for desktop, tablet, and mobile.
+
+Attributes:
+  parent          = 0         0 = top level only, -1 = all, or specific parent ID
+  include         = (empty)   Comma-separated category slugs to include
+  exclude         = (empty)   Comma-separated category slugs to exclude
+  orderby         = name      name | count | slug | term_order | menu_order
+  order           = ASC       ASC | DESC
+  hide_empty      = true      Hide categories with no products
+  limit           = -1        Number of categories to show
+  columns         = 4         Desktop columns
+  columns_tablet  = 3         Tablet columns
+  columns_mobile  = 2         Mobile columns
+  gap             = 20px      Desktop gap
+  gap_tablet      = 16px      Tablet gap
+  gap_mobile      = 12px      Mobile gap
+  image_height    = 340px     Card height
+  border_radius   = 12px      Card border radius
+  show_count      = false     Show product count text
+  fallback_image  = (empty)   Fallback image URL
+  class           = (empty)   Extra CSS classes
+
+Usage:
+  [zippy_product_categories_grid]
+
+  [zippy_product_categories_grid columns="3" columns_tablet="2" columns_mobile="1"]
+
+  [zippy_product_categories_grid include="dogs,cats,birds" gap="24px" show_count="true"]
 
 
 ================================================================================
