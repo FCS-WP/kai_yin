@@ -16,6 +16,53 @@
 if (! defined('ABSPATH')) exit;
 
 
+// WooCommerce reserves query vars beginning with filter_ for layered nav
+// attributes, where values must be comma-separated strings. Keep this
+// shortcode's multi-select params under a private prefix.
+function zippy_normalize_shop_filter_request()
+{
+    $legacy_params = [
+        'filter_cat'   => 'zippy_filter_cat',
+        'filter_brand' => 'zippy_filter_brand',
+    ];
+
+    foreach ($legacy_params as $legacy_key => $new_key) {
+        if (isset($_GET[$legacy_key]) && ! isset($_GET[$new_key])) {
+            $_GET[$new_key] = $_GET[$legacy_key];
+        }
+
+        unset($_GET[$legacy_key], $_REQUEST[$legacy_key]);
+    }
+}
+add_action('init', 'zippy_normalize_shop_filter_request', 0);
+
+
+function zippy_get_request_int_list($key, $fallback_key = '')
+{
+    $value = null;
+
+    if (isset($_GET[$key])) {
+        $value = $_GET[$key];
+    } elseif ($fallback_key && isset($_GET[$fallback_key])) {
+        $value = $_GET[$fallback_key];
+    }
+
+    if ($value === null || $value === '') {
+        return [];
+    }
+
+    $values = is_array($value)
+        ? $value
+        : explode(',', (string) $value);
+
+    $values = array_map(static function ($item) {
+        return absint(wp_unslash($item));
+    }, $values);
+
+    return array_values(array_unique(array_filter($values)));
+}
+
+
 // ============================================================
 // Helper: get highest product price from DB (cached)
 // ============================================================
@@ -80,7 +127,7 @@ function zippy_render_cat_tree($parent_id, $depth, $max_depth, $current_cats, $u
                 <input
                     type="checkbox"
                     id="<?php echo $child_id; ?>"
-                    name="filter_cat[]"
+                    name="zippy_filter_cat[]"
                     value="<?php echo esc_attr($term->term_id); ?>"
                     <?php echo $checked; ?>
                     class="zippy-filter__checkbox" />
@@ -137,10 +184,10 @@ function zippy_shop_filter($atts)
         : zippy_get_max_product_price();
 
     // ── Current filter state from URL ──
-    $current_min    = isset($_GET['min_price'])    ? (float) $_GET['min_price']                         : $price_min;
-    $current_max    = isset($_GET['max_price'])    ? (float) $_GET['max_price']                         : $price_max;
-    $current_cats   = isset($_GET['filter_cat'])   ? array_map('intval', (array) $_GET['filter_cat'])   : [];
-    $current_brands = isset($_GET['filter_brand']) ? array_map('intval', (array) $_GET['filter_brand']) : [];
+    $current_min    = isset($_GET['min_price']) ? (float) $_GET['min_price'] : $price_min;
+    $current_max    = isset($_GET['max_price']) ? (float) $_GET['max_price'] : $price_max;
+    $current_cats   = zippy_get_request_int_list('zippy_filter_cat', 'filter_cat');
+    $current_brands = zippy_get_request_int_list('zippy_filter_brand', 'filter_brand');
 
     // ── Action URL ──
     $action = ! empty($atts['action_url'])
@@ -285,7 +332,7 @@ function zippy_shop_filter($atts)
                                                 <input
                                                     type="checkbox"
                                                     id="<?php echo $brand_id; ?>"
-                                                    name="filter_brand[]"
+                                                    name="zippy_filter_brand[]"
                                                     value="<?php echo esc_attr($brand->term_id); ?>"
                                                     <?php echo $checked; ?>
                                                     class="zippy-filter__checkbox" />
@@ -398,24 +445,26 @@ add_action('woocommerce_product_query', function ($q) {
     $meta_query = (array) $q->get('meta_query');
 
     // ── Category filter ──
-    if (! empty($_GET['filter_cat'])) {
+    $filter_cats = zippy_get_request_int_list('zippy_filter_cat', 'filter_cat');
+    if (! empty($filter_cats)) {
         $tax_query[] = [
             'taxonomy' => 'product_cat',
             'field'    => 'term_id',
-            'terms'    => array_map('intval', (array) $_GET['filter_cat']),
+            'terms'    => $filter_cats,
             'operator' => 'IN',
         ];
         $q->set('tax_query', $tax_query);
     }
 
     // ── Brand filter ──
-    if (! empty($_GET['filter_brand'])) {
+    $filter_brands = zippy_get_request_int_list('zippy_filter_brand', 'filter_brand');
+    if (! empty($filter_brands)) {
         $brand_tax = 'product_brand';
         if (taxonomy_exists($brand_tax)) {
             $tax_query[] = [
                 'taxonomy' => $brand_tax,
                 'field'    => 'term_id',
-                'terms'    => array_map('intval', (array) $_GET['filter_brand']),
+                'terms'    => $filter_brands,
                 'operator' => 'IN',
             ];
             $q->set('tax_query', $tax_query);
